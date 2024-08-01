@@ -81,6 +81,7 @@ func (l *Lexer) NextToken() token.Token {
 		}
 	}
 
+	fmt.Println("calling readChar()")
 	l.readChar()
 	return t
 }
