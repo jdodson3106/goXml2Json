@@ -43,6 +43,7 @@ func (l *Lexer) readChar() {
 
 func (l *Lexer) NextToken() token.Token {
 	var t token.Token
+	fmt.Printf("evaluating %s\n", string(l.ch))
 
 	if l.lexType == JSON {
 		t = l.nextJsonToken()
@@ -63,12 +64,16 @@ func (l *Lexer) NextToken() token.Token {
 			t = newToken(token.SINGLE_QUOTE, l.ch)
 		case '"':
 			t = newToken(token.QUOTE, l.ch)
+		case ' ':
+			l.readChar()
+			t = l.NextToken()
 		case 0:
 			t.Literal = ""
 			t.Type = token.EOF
 		default:
 			if isAlphaNumeric(l.ch) {
 				t = l.readIdentifier()
+				fmt.Printf("returning %+v with next read %s\n", t, string(l.ch))
 				return t
 			} else {
 				t = newToken(token.ILLEGAL, l.ch)
@@ -141,6 +146,8 @@ func (l *Lexer) readIdentifier() token.Token {
 	}
 
 	tok.Literal = l.input[pos:l.currentPosition]
+	fmt.Printf("type: %s :: literal found = %s\n", tok.Type, tok.Literal)
+	fmt.Printf("next read :: '%s'\n", string(l.ch))
 	return tok
 }
 
@@ -149,5 +156,7 @@ func newToken(tokenType token.TokenType, char byte) token.Token {
 }
 
 func isAlphaNumeric(ch byte) bool {
-	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == '_' || ch == '-' || ch == '.'
+	isAN := (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == '_' || ch == '-' || ch == '.'
+	fmt.Printf("isAlphanumeric(%s) = %v\n", string(ch), isAN)
+	return isAN
 }
