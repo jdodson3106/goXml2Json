@@ -43,7 +43,8 @@ func (l *Lexer) readChar() {
 
 func (l *Lexer) NextToken() token.Token {
 	var t token.Token
-	fmt.Printf("evaluating %s\n", string(l.ch))
+
+	l.skipWhitespace()
 
 	if l.lexType == JSON {
 		t = l.nextJsonToken()
@@ -64,9 +65,6 @@ func (l *Lexer) NextToken() token.Token {
 			t = newToken(token.SINGLE_QUOTE, l.ch)
 		case '"':
 			t = newToken(token.QUOTE, l.ch)
-		case ' ':
-			l.readChar()
-			t = l.NextToken()
 		case 0:
 			t.Literal = ""
 			t.Type = token.EOF
@@ -150,6 +148,12 @@ func (l *Lexer) readIdentifier() token.Token {
 	fmt.Printf("type: %s :: literal found = %s\n", tok.Type, tok.Literal)
 	fmt.Printf("next read :: '%s'\n", string(l.ch))
 	return tok
+}
+
+func (l *Lexer) skipWhitespace() {
+	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
+		l.readChar()
+	}
 }
 
 func newToken(tokenType token.TokenType, char byte) token.Token {
