@@ -71,7 +71,6 @@ func (l *Lexer) NextToken() token.Token {
 		default:
 			if isAlphaNumeric(l.ch) {
 				t = l.readIdentifier()
-				fmt.Printf("returning %+v with next read %s\n", t, string(l.ch))
 				return t
 			} else {
 				t = newToken(token.ILLEGAL, l.ch)
@@ -79,7 +78,6 @@ func (l *Lexer) NextToken() token.Token {
 		}
 	}
 
-	fmt.Println("calling readChar()")
 	l.readChar()
 	return t
 }
@@ -145,8 +143,6 @@ func (l *Lexer) readIdentifier() token.Token {
 	}
 
 	tok.Literal = l.input[pos:l.currentPosition]
-	fmt.Printf("type: %s :: literal found = %s\n", tok.Type, tok.Literal)
-	fmt.Printf("next read :: '%s'\n", string(l.ch))
 	return tok
 }
 
@@ -162,6 +158,5 @@ func newToken(tokenType token.TokenType, char byte) token.Token {
 
 func isAlphaNumeric(ch byte) bool {
 	isAN := (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == '_' || ch == '-' || ch == '.'
-	fmt.Printf("isAlphanumeric(%s) = %v\n", string(ch), isAN)
 	return isAN
 }

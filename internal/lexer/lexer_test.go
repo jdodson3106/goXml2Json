@@ -1,7 +1,6 @@
 package lexer
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/jdodson3106/goXml2Json/internal/token"
@@ -16,8 +15,6 @@ type TokenTestCase struct {
 func runNextTokenChecks(lex *Lexer, testCases []TokenTestCase, t *testing.T) {
 	for i, tc := range testCases {
 		tok := lex.NextToken()
-
-		fmt.Printf("[%d] checking case %+v :: tok=%+v\n", i, tc, tok)
 
 		if tok.Type != tc.expectedType {
 			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q", i, tc.expectedType, tok.Type)
@@ -46,7 +43,6 @@ func TestNextToken(t *testing.T) {
 	lex, err := New(xmlInput, XML)
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
-	fmt.Println()
 }
 
 func TestAttributesNextToken(t *testing.T) {
@@ -71,5 +67,4 @@ func TestAttributesNextToken(t *testing.T) {
 	lex, err := New(xmlInput, XML)
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
-	fmt.Println()
 }
