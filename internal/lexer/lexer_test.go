@@ -68,3 +68,84 @@ func TestAttributesNextToken(t *testing.T) {
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
 }
+
+func TestMultipleAttributesNextToken(t *testing.T) {
+	xmlInput := `<name age="34" category="given-name">Justin</name>`
+
+	testCases := []TokenTestCase{
+		{token.OPEN_ANGLE, "<"},
+		{token.TAG, "name"},
+		{token.KEY, "age"},
+		{token.EQUAL, "="},
+		{token.QUOTE, "\""},
+		{token.VALUE, "34"},
+		{token.QUOTE, "\""},
+		{token.KEY, "category"},
+		{token.EQUAL, "="},
+		{token.QUOTE, "\""},
+		{token.VALUE, "given-name"},
+		{token.QUOTE, "\""},
+		{token.CLOSE_ANGLE, ">"},
+		{token.VALUE, "Justin"},
+		{token.OPEN_ANGLE, "<"},
+		{token.XML_TERMINATOR, "/"},
+		{token.TAG, "name"},
+		{token.CLOSE_ANGLE, ">"},
+	}
+
+	lex, err := New(xmlInput, XML)
+	require.NoError(t, err)
+	runNextTokenChecks(lex, testCases, t)
+}
+
+func TestNestedElementsNextToken(t *testing.T) {
+	xmlInput := `
+	<person>
+		<name category="given-name">Justin</name>
+		<name category="family-name">Dodson</name>
+	</person>
+	`
+
+	testCases := []TokenTestCase{
+		{token.OPEN_ANGLE, "<"},
+		{token.TAG, "person"},
+		{token.CLOSE_ANGLE, ">"},
+
+		{token.OPEN_ANGLE, "<"},
+		{token.TAG, "name"},
+		{token.KEY, "category"},
+		{token.EQUAL, "="},
+		{token.QUOTE, "\""},
+		{token.VALUE, "given-name"},
+		{token.QUOTE, "\""},
+		{token.CLOSE_ANGLE, ">"},
+		{token.VALUE, "Justin"},
+		{token.OPEN_ANGLE, "<"},
+		{token.XML_TERMINATOR, "/"},
+		{token.TAG, "name"},
+		{token.CLOSE_ANGLE, ">"},
+
+		{token.OPEN_ANGLE, "<"},
+		{token.TAG, "name"},
+		{token.KEY, "category"},
+		{token.EQUAL, "="},
+		{token.QUOTE, "\""},
+		{token.VALUE, "family-name"},
+		{token.QUOTE, "\""},
+		{token.CLOSE_ANGLE, ">"},
+		{token.VALUE, "Dodson"},
+		{token.OPEN_ANGLE, "<"},
+		{token.XML_TERMINATOR, "/"},
+		{token.TAG, "name"},
+		{token.CLOSE_ANGLE, ">"},
+
+		{token.OPEN_ANGLE, "<"},
+		{token.XML_TERMINATOR, "/"},
+		{token.TAG, "person"},
+		{token.CLOSE_ANGLE, ">"},
+	}
+
+	lex, err := New(xmlInput, XML)
+	require.NoError(t, err)
+	runNextTokenChecks(lex, testCases, t)
+}
