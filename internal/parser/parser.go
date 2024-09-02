@@ -1,49 +1,35 @@
 package parser
 
 import (
-	"fmt"
-
-	models "github.com/jdodson3106/goXml2Json/internal"
+	"github.com/jdodson3106/goXml2Json/internal/ast"
+	"github.com/jdodson3106/goXml2Json/internal/lexer"
+	"github.com/jdodson3106/goXml2Json/internal/token"
 )
 
 const (
-	X_TERMINATOR = '/'
-	OPEN_ANGLE   = '<'
-	CLOSE_ANGLE  = '>'
-	OPEN_CURLY   = '{'
-	CLOSE_CURLY  = '}'
-	OPEN_SQUARE  = '['
-	CLOSE_SQUARE = ']'
-	COMMA        = ','
-	COLON        = ':'
-	EQUAL        = '='
-	QUOTE        = '"'
-
 	JSON = "json"
 	XML  = "xml"
 )
 
-func parseObject(objType, obj string) ([]models.ParsedObject, error) {
-	switch objType {
-	case JSON:
-		return parseJson(obj)
-	case XML:
-		return parseXml(obj)
-	default:
-		return nil, fmt.Errorf("unknown file type .%s", objType)
-	}
+type Parser struct {
+	l *lexer.Lexer
+
+	currentToken token.Token
+	peekToken    token.Token
 }
 
-func parseXml(xml string) ([]models.ParsedObject, error) {
-	if xml == "" {
-		return nil, fmt.Errorf("not object provided")
-	}
-	return []models.ParsedObject{&models.XmlObject{}}, nil
+func New(l *lexer.Lexer) *Parser {
+	p := &Parser{l: l}
+	p.nextToken()
+	p.nextToken()
+	return p
 }
 
-func parseJson(json string) ([]models.ParsedObject, error) {
-	if json == "" {
-		return nil, fmt.Errorf("not object provided")
-	}
-	return []models.ParsedObject{&models.JsonObject{}}, nil
+func (p *Parser) nextToken() {
+	p.currentToken = p.peekToken
+	p.peekToken = p.l.NextToken()
+}
+
+func (p *Parser) ParseDocument() *ast.Document {
+	return nil
 }

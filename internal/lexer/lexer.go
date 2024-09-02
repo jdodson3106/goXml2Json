@@ -44,7 +44,7 @@ func (l *Lexer) readChar() {
 func (l *Lexer) NextToken() token.Token {
 	var t token.Token
 
-	l.skipWhitespace()
+	l.eatWhitespace()
 
 	if l.lexType == JSON {
 		t = l.nextJsonToken()
@@ -146,7 +146,7 @@ func (l *Lexer) readIdentifier() token.Token {
 	return tok
 }
 
-func (l *Lexer) skipWhitespace() {
+func (l *Lexer) eatWhitespace() {
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
 		l.readChar()
 	}
