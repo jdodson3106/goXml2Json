@@ -22,10 +22,11 @@ type Parser struct {
 
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l}
+
+	// queue up the first two tokens into current and peek
 	p.nextToken()
 	p.nextToken()
 
-	fmt.Printf("New() Called: current tokens | %v, %v\n", p.currentToken, p.peekToken)
 	return p
 }
 
