@@ -62,10 +62,6 @@ func (p *Parser) parseElement() ast.ElementNode {
 func (p *Parser) parseTagStatement() ast.ElementNode {
 	tag := &ast.ElementTagNode{Token: p.currentToken}
 
-	// example: we come in with p.currentToken = {token.TAG, "tag"}
-	// <tag key="value" />
-	// <tag key="value"></tag>
-
 	// parse all attributes from statement
 	for p.expectPeek(token.KEY) {
 		tag.Attributes = append(tag.Attributes, p.parseAttribute())
@@ -87,9 +83,6 @@ func (p *Parser) parseTagStatement() ast.ElementNode {
 		p.errors = append(p.errors, "expected closing angle tag for tag")
 		return nil
 	}
-
-	// example: we come in with p.currentToken = {token.TAG, "tag"}
-	// <tag key="value"></tag>
 
 	// if the next token is not a value then it must have children or nothing
 	// this is the recursive bit of the recursive descent parser
