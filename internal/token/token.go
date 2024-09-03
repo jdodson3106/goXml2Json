@@ -19,7 +19,7 @@ const (
 	OPEN_ANGLE     = "<"
 	CLOSE_ANGLE    = ">"
 
-	// json delimeter tokens
+	// json delimiter tokens
 	OPEN_CURLY   = "{"
 	CLOSE_CURLY  = "}"
 	OPEN_SQUARE  = "["
