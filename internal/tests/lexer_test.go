@@ -1,6 +1,7 @@
-package lexer
+package tests
 
 import (
+	"github.com/jdodson3106/goXml2Json/internal/lexer"
 	"testing"
 
 	"github.com/jdodson3106/goXml2Json/internal/token"
@@ -12,7 +13,7 @@ type TokenTestCase struct {
 	expectedLiteral string
 }
 
-func runNextTokenChecks(lex *Lexer, testCases []TokenTestCase, t *testing.T) {
+func runNextTokenChecks(lex *lexer.Lexer, testCases []TokenTestCase, t *testing.T) {
 	for i, tc := range testCases {
 		tok := lex.NextToken()
 
@@ -40,7 +41,7 @@ func TestNextToken(t *testing.T) {
 		{token.CLOSE_ANGLE, ">"},
 	}
 
-	lex, err := New(xmlInput, XML)
+	lex, err := lexer.New(xmlInput, lexer.XML)
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
 }
@@ -64,7 +65,7 @@ func TestAttributesNextToken(t *testing.T) {
 		{token.CLOSE_ANGLE, ">"},
 	}
 
-	lex, err := New(xmlInput, XML)
+	lex, err := lexer.New(xmlInput, lexer.XML)
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
 }
@@ -93,7 +94,7 @@ func TestMultipleAttributesNextToken(t *testing.T) {
 		{token.CLOSE_ANGLE, ">"},
 	}
 
-	lex, err := New(xmlInput, XML)
+	lex, err := lexer.New(xmlInput, lexer.XML)
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
 }
@@ -145,7 +146,7 @@ func TestNestedElementsNextToken(t *testing.T) {
 		{token.CLOSE_ANGLE, ">"},
 	}
 
-	lex, err := New(xmlInput, XML)
+	lex, err := lexer.New(xmlInput, lexer.XML)
 	require.NoError(t, err)
 	runNextTokenChecks(lex, testCases, t)
 }

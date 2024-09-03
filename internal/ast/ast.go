@@ -41,12 +41,12 @@ type ElementTagNode struct {
 	Attributes []*ElementAttributeNode
 
 	// Elements are pointers to all the children Element tags
-	Elements []*ElementTagNode
+	Elements []*ElementNode
 
 	// Value is the value of the element.
 	// Typically, this will be nil if the Elements property is
 	// not nil (or empty) and vice versa
-	Value *ElementValueNode
+	Value ElementValueNode
 
 	// EndToken is the closing token that all xml elements need
 	// Examples are <tag></tag> or <tag/>. In the first instance the tag could have children nodes or a Value

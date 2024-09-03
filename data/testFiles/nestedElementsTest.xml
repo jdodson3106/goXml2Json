@@ -1,0 +1,5 @@
+<employee role="programmer">
+    <name>Justin</name>
+    <dob>09-27-1989</dob>
+    <phone type="mobile">8675301</phone> 
+</employee>

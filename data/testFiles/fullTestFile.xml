@@ -1,0 +1,38 @@
+<people group="true" group-type="family">
+	<person role="father">
+		<name category="given-name">Justin</name>
+		<name category="family-name">Dodson</name>
+		<dob>09/27/1989</dob>
+		<ssn>999-99-9994</ssn>
+	</person>
+	<person role="mother">
+		<name category="given-name">Diana</name>
+		<name category="family-name">Dodson</name>
+		<dob>03/04/1988</dob>
+		<ssn>999-99-9995</ssn>
+	</person>
+	<person role="son">
+		<name category="given-name">Jimmie</name>
+		<name category="family-name">Dodson</name>
+		<dob>08/31/2006</dob>
+		<ssn>999-99-99996/ssn>
+	</person>
+	<person role="son">
+		<name category="given-name">Wyatt</name>
+		<name category="family-name">Dodson</name>
+		<dob>12/08/2009</dob>
+		<ssn>999-99-9997</ssn>
+	</person>
+	<person role="son">
+		<name category="given-name">Noah</name>
+		<name category="family-name">Dodson</name>
+		<dob>12/14/2012</dob>
+		<ssn>999-99-99998</ssn>
+	</person>
+	<person role="daughter">
+		<name category="given-name">Lilah</name>
+		<name category="family-name">Dodson</name>
+		<dob>01/27/2020</dob>
+		<ssn>999-99-9999</ssn>
+	</person>
+</people>
