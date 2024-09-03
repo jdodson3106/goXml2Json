@@ -197,33 +197,3 @@ func TestAttributeDefinition(t *testing.T) {
 		require.Equal(t, &tt, el)
 	}
 }
-
-//func testTagDef(t *testing.T, el ast.ElementNode, elLit string, expected ast.ElementTagNode) bool {
-//	if el.TokenLiteral() != elLit {
-//		t.Errorf("el.TokenLiteral not '%s'. got=%q", elLit, el.TokenLiteral())
-//		return false
-//	}
-//
-//	tagEl, ok := el.(*ast.ElementTagNode)
-//	if !ok {
-//		t.Errorf("el not *ast.ElementTagNode. got=%T", el)
-//		return false
-//	}
-//
-//	if tagEl.Token.Literal != expected.expectedValue {
-//		t.Errorf("tagEl.Token.Literal not '%s'. got=%s", expected.expectedValue, tagEl.Token.Literal)
-//		return false
-//	}
-//
-//	if tagEl.Token.Type != expected.expectedToken {
-//		t.Errorf("tagEl.Token.Type not '%s'. got=%v", expected.expectedToken, tagEl.Token.Type)
-//		return false
-//	}
-//
-//	if tagEl.TokenLiteral() != expected.expectedValue {
-//		t.Errorf("tagEl.TokenLiteral not '%s'. got=%s", expected.expectedValue, tagEl.TokenLiteral())
-//		return false
-//	}
-//
-//	return true
-//}
